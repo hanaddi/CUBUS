@@ -226,12 +226,12 @@ handlers.onTest = function(args){
 				PlayFabId: currentPlayerId,
 				Data : {
 					"stats" : stats
-					,"gain" : reward
+					
 				}
 			}
 			);
 
-			return {result : "true"};
+			return {result : "true" ,"gain" : reward};
 		}else{
 			return {result : "false"};
 		}
