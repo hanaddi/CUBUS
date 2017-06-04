@@ -214,7 +214,8 @@ handlers.onTest = function(args){
 		validasi.importTest(benda);
 		if(validasi.submit_all()){
 			var stats = JSON.parse(userData.Data.stats.Value);
-			//benda = JSON.parse(benda);
+			log.debug(benda);
+			benda = JSON.parse(benda);
 			stats.money = stats.money*1 + task.reward;
 			for(aa of benda){
 				stats.money -= cubus[aa.t]["X-cost"];
