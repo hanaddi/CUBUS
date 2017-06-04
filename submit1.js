@@ -218,7 +218,7 @@ handlers.onTest = function(args){
 	});
 
 	//try{
-		var task = JSON.parse(userData.Data.tasks.Value)[id];
+		var task = (tasks = JSON.parse(userData.Data.tasks.Value))[id];
 		var validasi = new Validasi(task.panjangSisi, task.panjangSisi, task.tinggiSisi);
 		for(var i of task.val ){
 			validasi.val(i);
@@ -227,8 +227,7 @@ handlers.onTest = function(args){
 		if(validasi.submit_all()){
 
 			var cubes = JSON.parse(userData.Data.cubes.Value);
-
-
+			tasks[id] = null
 			var stats = JSON.parse(userData.Data.stats.Value);
 			benda = JSON.parse(benda);
 			var reward = task.reward;
@@ -246,6 +245,7 @@ handlers.onTest = function(args){
 			stats.money = stats.money*1 + reward;
 			stats = JSON.stringify(stats);
 			cubes = JSON.stringify(cubes);
+			tasks = JSON.stringify(tasks);
 
 			server.UpdateUserReadOnlyData(
 			{
@@ -253,7 +253,7 @@ handlers.onTest = function(args){
 				Data : {
 					 "stats" : stats
 					,"cubes" : cubes
-					
+					,"tasks" : tasks
 				}
 			}
 			);
