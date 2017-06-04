@@ -193,7 +193,19 @@ function Validasi(x,y,z){
 
 }
 
+/*////////////////////
 
+
+{
+	"plastic_0000ff":-999 ,
+	"plastic_ff0000":-999 ,
+	"plastic_00ff00":-999 ,
+	"glass_ff0000":-999 ,
+	"plastic_ffffff":-999 ,
+	"prop_0000ff" : 100
+}
+
+//**////////////////////////
 handlers.onTest = function(args){
 	var id = args.id;
 	var benda = args.benda;
@@ -213,19 +225,34 @@ handlers.onTest = function(args){
 		}
 		validasi.importTest(benda);
 		if(validasi.submit_all()){
+
+			var cubes = JSON.parse(userData.Data.cubes.Value);
+
+
 			var stats = JSON.parse(userData.Data.stats.Value);
 			benda = JSON.parse(benda);
 			var reward = task.reward;
 			for(var aa in benda){
 				reward -= cubus[ benda[aa].t]["X-cost"];
+				if(cubes[ benda[aa].t + "_" + benda[aa].c ]!=-999){
+					cubes[ benda[aa].t + "_" + benda[aa].c ] -=1;
+					if(cubes[ benda[aa].t + "_" + benda[aa].c ] <0){
+						return {result : "false" ,"pesan" : "Not enough cube"};
+					}
+				}
 			}
+
+
 			stats.money = stats.money*1 + reward;
 			stats = JSON.stringify(stats);
+			cubes = JSON.stringify(cubes);
+
 			server.UpdateUserReadOnlyData(
 			{
 				PlayFabId: currentPlayerId,
 				Data : {
-					"stats" : stats
+					 "stats" : stats
+					,"cubes" : cubes
 					
 				}
 			}
@@ -233,7 +260,7 @@ handlers.onTest = function(args){
 
 			return {result : "true" ,"gain" : reward};
 		}else{
-			return {result : "false"};
+			return {result : "false" ,"pesan" : ""};
 		}
 
 	//}catch(e){
