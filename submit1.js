@@ -215,16 +215,18 @@ handlers.onTest = function(args){
 		if(validasi.submit_all()){
 			var stats = JSON.parse(userData.Data.stats.Value);
 			benda = JSON.parse(benda);
-			stats.money = stats.money*1 + task.reward;
+			var reward = task.reward;
 			for(var aa in benda){
-				stats.money -= cubus[ benda[aa].t]["X-cost"];
+				reward -= cubus[ benda[aa].t]["X-cost"];
 			}
+			stats.money = stats.money*1 + reward;
 			stats = JSON.stringify(stats);
 			server.UpdateUserReadOnlyData(
 			{
 				PlayFabId: currentPlayerId,
 				Data : {
 					"stats" : stats
+					,"gain" : reward
 				}
 			}
 			);
