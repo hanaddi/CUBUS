@@ -156,7 +156,7 @@ handlers.onTest = function(args){
 		Keys: []
 	});
 
-	try{
+	//try{
 		userData = JSON.parse(userData);
 		log.debug(userData);
 		var task = userData.Data.tasks[id].Value;
@@ -171,7 +171,7 @@ handlers.onTest = function(args){
 			return {result : "false"};
 		}
 
-	}catch(e){
-		return {result : "error "+e};
-	}
+	//}catch(e){
+	//	return {result : "error "+e};
+	//}
 }
