@@ -205,7 +205,7 @@ handlers.onTest = function(args){
 		Keys: []
 	});
 
-	try{
+	//try{
 		var task = JSON.parse(userData.Data.tasks.Value)[id];
 		var validasi = new Validasi(task.panjangSisi, task.panjangSisi, task.tinggiSisi);
 		for(var i of task.val ){
@@ -219,11 +219,12 @@ handlers.onTest = function(args){
 			for(var a of benda){
 				stats.money -= cubus[a.t]["X-cost"];
 			}
+			stats = JSON.stringify(stats);
 			server.UpdateUserReadOnlyData(
 			{
 				PlayFabId: currentPlayerId,
 				Data : {
-					"stats" : JSON.stringify(stats)
+					"stats" : stats
 				}
 			}
 			);
@@ -233,7 +234,7 @@ handlers.onTest = function(args){
 			return {result : "false"};
 		}
 
-	}catch(e){
-		return {result : "error "+e};
-	}
+	//}catch(e){
+	//	return {result : "error "+e};
+	//}
 }
