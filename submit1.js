@@ -223,7 +223,7 @@ handlers.onTest = function(args){
 			{
 				PlayFabId: currentPlayerId,
 				Data : {
-					stats : stats
+					"stats" : JSON.stringify(stats)
 				}
 			}
 			);
