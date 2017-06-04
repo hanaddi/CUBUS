@@ -217,8 +217,8 @@ handlers.onTest = function(args){
 			log.debug(benda);
 			benda = JSON.parse(benda);
 			stats.money = stats.money*1 + task.reward;
-			for(aa of benda){
-				stats.money -= cubus[aa.t]["X-cost"];
+			for(var aa in benda){
+				stats.money -= cubus[ benda[aa].t]["X-cost"];
 			}
 			stats = JSON.stringify(stats);
 			server.UpdateUserReadOnlyData(
