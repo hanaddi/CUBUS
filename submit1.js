@@ -157,9 +157,9 @@ handlers.onTest = function(args){
 	});
 
 	//try{
-		userData = JSON.parse(userData);
+		//userData = JSON.parse(userData);
 		//log.debug(userData);
-		var task = userData.Data.tasks[id].Value;
+		var task = JSON.parse(userData.Data.tasks.Value)[id];
 		var validasi = new Validasi(task.panjangSisi, task.panjangSisi, task.tinggiSisi);
 		for(var i of task.val ){
 			validasi.val(i);
