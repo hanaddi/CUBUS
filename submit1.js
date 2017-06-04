@@ -1,5 +1,54 @@
 //submit1
 
+var cubus = {
+	plastic :{
+		"fill-opacity"        :1
+		,"fill-rule"          :"evenodd"
+		,"stroke"             :"#000000"
+		,"stroke-width"       :0.5
+		,"stroke-linecap"     :"round"
+		,"stroke-linejoin"    :"round"
+		,"stroke-miterlimit"  :4
+		,"stroke-opacity"     :1
+		,"X-cost"     		  :50
+	},
+	glass :{
+		"fill-opacity"        :0.4
+		,"fill-rule"          :"evenodd"
+		,"stroke"             :"#111111"
+		,"stroke-width"       :0.5
+		,"stroke-linecap"     :"round"
+		,"stroke-linejoin"    :"round"
+		,"stroke-miterlimit"  :4
+		,"stroke-opacity"     :1
+		,"X-cost"     		  :100
+	},
+	prop :{
+		"fill-opacity"        :0
+		,"fill-rule"          :"evenodd"
+		,"stroke"             :"#948f8b"
+		,"stroke-width"       :2
+		,"stroke-linecap"     :"round"
+		,"stroke-linejoin"    :"round"
+		,"stroke-miterlimit"  :4
+		,"stroke-opacity"     :1
+		,"X-cost"     		  :5
+	},
+	aim :{
+		"fill"                :"#ff7700"
+		,"fill-opacity"       :0.5
+		,"fill-rule"          :"evenodd"
+		,"stroke"             :"#948f8b"
+		,"stroke-width"       :0
+		,"stroke-linecap"     :"round"
+		,"stroke-linejoin"    :"round"
+		,"stroke-miterlimit"  :4
+		,"stroke-opacity"     :1
+		,"X-cost"     		  :0
+	}
+}
+
+
 function Validasi(x,y,z){
 	var self = {
 		 x : x
@@ -156,9 +205,7 @@ handlers.onTest = function(args){
 		Keys: []
 	});
 
-	//try{
-		//userData = JSON.parse(userData);
-		//log.debug(userData);
+	try{
 		var task = JSON.parse(userData.Data.tasks.Value)[id];
 		var validasi = new Validasi(task.panjangSisi, task.panjangSisi, task.tinggiSisi);
 		for(var i of task.val ){
@@ -166,12 +213,27 @@ handlers.onTest = function(args){
 		}
 		validasi.importTest(benda);
 		if(validasi.submit_all()){
+			var stats = JSON.parse(userData.Data.stats.Value);
+			benda = JSON.parse(benda);
+			stats.money = stats.money*1 + task.reward;
+			for(var a of benda){
+				stats.money -= cubus[a.t]["X-cost"];
+			}
+			server.UpdateUserReadOnlyData(
+			{
+				PlayFabId: currentPlayerId,
+				Data : {
+					stats : stats
+				}
+			}
+			);
+
 			return {result : "true"};
 		}else{
 			return {result : "false"};
 		}
 
-	//}catch(e){
-	//	return {result : "error "+e};
-	//}
+	}catch(e){
+		return {result : "error "+e};
+	}
 }
