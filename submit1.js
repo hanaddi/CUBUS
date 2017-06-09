@@ -206,6 +206,19 @@ function Validasi(x,y,z){
 }
 
 //**////////////////////////
+handlers.reset = function(args){
+	server.UpdateUserReadOnlyData(
+	{
+		PlayFabId: currentPlayerId,
+		Data : {
+			 "stats" : '{"money":100}'
+			,"cubes" : '{"plastic_000000":100}'
+			,"tasks" : '{"I3":{"id":"I3","judul":"RANDOM","reward":0,"panjangSisi":10,"tinggiSisi":10,"val":[{"p":"r","t":"s","0_0":2,"2_0":2,"1_1":2,"1_6":2,"1_5":2,"1_4":2,"1_3":2,"1_2":2},{"p":"f","t":"c","0_0":"ff0000","2_0":"00ff00","1_1":"0000ff"}]}}'
+		}
+	}
+	);
+}
+
 handlers.onTest = function(args){
 	var id = args.id;
 	var benda = args.benda;
